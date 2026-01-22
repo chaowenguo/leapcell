@@ -1,5 +1,5 @@
 runtime: node
-startCommand: node app.js
-buildCommand: npm install
+startCommand: node server.mjs
+buildCommand: npm install koa koa-static koa2-serve-index
 port: 8080
-memory: 512mb
+memory: 4096mb
