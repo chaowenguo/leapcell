@@ -5,14 +5,10 @@ import Koa from 'koa'
 import serve from 'koa-static'
 import list from 'koa2-serve-index'
 
-function respawn(_)
-{
-    _.on('close', () => respawn(child_process.spawn(_.spawnfile, _.spawnargs.slice(1))))
-}
-
 const app = new Koa()
 app.use(list(import.meta.dirname)).use(serve(import.meta.dirname))
 //child_process.spawn('dotnet', [path.join(import.meta.dirname, 'Cli.dll'), 'start', 'accept', '--token', 'ELGPy/DEQYDtARslA6HnkrbPIF6JQi+qYLCre5LBe58='])
 //child_process.spawn(path.join(import.meta.dirname, 'bitpingd'))
-respawn(child_process.spawn('node', [path.join(import.meta.dirname, 'script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', '21' + '0'.repeat(62), '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP']))
+process.argv = [process.execPath, 'script.js', '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443','--id', 'leapcell', '--version', await globalThis.fetch('https://app-updates.sock.sh/peerclient/script/version.txt', {signal:new globalThis.AbortController().signal}).then(_ => _.json()), '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP']
+import('./script.js')
 app.listen(8080)
