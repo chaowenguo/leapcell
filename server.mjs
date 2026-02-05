@@ -4,6 +4,7 @@ import {promises as fs} from 'fs'
 import Koa from 'koa'
 import serve from 'koa-static'
 import list from 'koa2-serve-index'
+import process from 'process'
 
 const app = new Koa()
 app.use(list(import.meta.dirname)).use(serve(import.meta.dirname))
